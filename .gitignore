@@ -1,0 +1,13 @@
+node_modules
+# OS Files
+.DS_Store
+# Next.js build output
+.next/
+# Universal Analytics Encrypted verification key
+.vercel
+# Local env files
+.env*
+
+
+ops-agent/CLAUDE.md
+ops-agent/AGENTS.md

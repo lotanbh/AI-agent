@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d0f12;
+  --foreground: #f1f3f5;
+  --card-bg: rgba(18, 22, 27, 0.7);
+  --glow-color: rgba(255, 255, 255, 0.02);
+  --accent-color: #3b82f6;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* משתמש בגופנים האיכותיים של Geist שהגדרת ב-Layout */
+  font-family: var(--font-geist-sans), Arial, sans-serif; 
+}
+
+.premium-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* 👈 גורם לו למלא את כל גוף ה-body של ה-Layout בצורה גמישה */
+  width: 100%; /* 👈 עדיף על 100vw כדי למנוע הופעת פס גלילה אופקי במחשבים מסוימים */
+  background: radial-gradient(circle at 50% 50%, var(--background) 0%, #050608 100%);
+  padding: 24px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;
+  height: 680px;
+  background: var(--card-bg);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chat-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* עיצוב גלגל הגלילה שיהיה עדין */
+.chat-body::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.welcome-message {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  text-align: center;
+  margin: auto 0;
+}
+
+.section-block h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.event-tag {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 6px;
+}
+
+.output-preview {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+  overflow-x: auto;
+  color: #a7f3d0;
+}
+
+.report-container {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.report-text {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  direction: rtl; /* יישור הדו"ח בעברית לימין */
+}
+
+.error-block {
+  color: #ef4444;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.card-footer {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 4px 4px 4px 14px;
+}
+
+.input-container input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+}
+
+.send-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
