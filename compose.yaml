@@ -1,12 +1,54 @@
-# demo service
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# ops-agent
+services:
+  # 1. בסיס הנתונים של המערכת
+  mongodb:
+    image: mongo:6.0
+    container_name: agent-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - agent-network
+
+  # 2. שירות הדמו / סימולציית התקלות
+  demo-service:
+    build:
+      context: ./backend/demo-service
+      dockerfile: Dockerfile
+    container_name: demo-service
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+    networks:
+      - agent-network
+    depends_on:
+      - mongodb
+
+  # 3. אפליקציית סוכן ה-AI (Next.js)
+  ops-agent:
+    build:
+      context: ./ops-agent
+      dockerfile: Dockerfile  # נבנה אותו בשלב הבא
+    container_name: ops-agent
+    ports:
+      - "3000:3000"
+    environment:
+      # חיבור פנימי לתוך רשת הדוקר של המונגו במקום localhost
+      - MONGODB_URI=mongodb://mongodb:27017/devops-agent
+      # ה-Keys שלך יוזנו מתוך קובץ ה-.env המקומי שלך במחשב
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    networks:
+      - agent-network
+    depends_on:
+      - mongodb
+      - demo-service
+
+volumes:
+  mongo_data:
+
+networks:
+  agent-network:
+    driver: bridge
