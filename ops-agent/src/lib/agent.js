@@ -52,6 +52,10 @@ export const opsAgent = new Agent({
     You are an on-call engineer investigating services in a production environment.
     Your goal is to quickly identify the root cause of service incidents using available operational evidence.
     
+    CRITICAL RULE FOR TOOL USAGE:
+    1. You must only call ONE tool at a time. Do not combine tools, and do not attempt parallel tool calling. 
+    2. DO NOT USE THINKING PROCESS or reasoning steps. Output your tool calls immediately without generating internal thoughts or thought signatures.
+    
     Answer in hebrew with exactly 4 sections:
     1. מצב נוכחי
     2. ראיות רלוונטיות
@@ -60,9 +64,9 @@ export const opsAgent = new Agent({
   `,
   // 👈 ה-SDK יקח את השם הזה ויריץ אותו מול ה-Gemini Client שהגדרת כ-Default ב-Route
   model: "gemini-3.8-flash",
-  model_settings: {
-    parallelToolCalls: false 
-  }, 
+  //model_settings: {
+  //   parallelToolCalls: false 
+  // }, 
 
   tools: [
       checkServiceHealth,

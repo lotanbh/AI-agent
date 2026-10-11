@@ -143,7 +143,10 @@ import { saveInvestigation } from "../../../lib/db.js";
 // 1. הלקוח של גוגל - כתובת התאימות הרשמית
 const geminiClient = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
-  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+//   defaultHeaders: {
+//     "skip_thought_signature_validator": "true" // מונע בעיות עם חתימות מחשבות של גוגל
+//   },
 });
 
 // 2. אכיפה ארכיטקטונית מוחלטת ל-SDK
@@ -174,6 +177,12 @@ export async function POST(request) {
                 });
 
                 for await (const event of results) {
+
+                    if (event.item?.rawItem?.name === "check_service_healthget_production_infoget_recent_logs") {
+                    // המודל של גוגל התבלבל ואיחד אותם, נכריח אותו להתחיל מהכלי הראשון בחקירה
+                    event.item.rawItem.name = "check_service_health";
+                    }
+
                     if (event.name === "tool_called") {
                         send({ type: "tool_called", tool: event.item.rawItem.name});
                     }
